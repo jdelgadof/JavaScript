@@ -47,73 +47,69 @@ fetch(apilink)
  */
 
 
-/*let query = document.getElementById('query').nodeValue
-console.log(query)
-
-
-const apilink = `https://api.tvmaze.com/search/shows?q=${nameSerie}`;
-fetch(apilink)
-.then(serie => serie.json())
-.then(serie => console.log(serie))
-.catch(error => console.log(error))
- */
-
 const form = document.querySelector('form');
 const nameSerie = document.querySelector('input[name=q]');
-const container = document.querySelector('#shows');
+const p = document.querySelector('p');
 
 form.addEventListener('submit', function(evt) {
-    // ... prevent the default action.
+
     evt.preventDefault();
-    console.log(nameSerie.value);
+    const apilink = `https://api.tvmaze.com/search/shows?q=${nameSerie.value}`;
+    fetch(apilink)
+    .then(serie => serie.json())
+    .then(serie => console.log(serie))              // Printing in the console to verify
+    .catch(error => console.log(error))
+                                                    //Running Async Function
+    fetch(apilink)
+    .then(serie => serie.json())
+    .then(serie =>ShowFirstShow(serie))
+    .catch(error => console.log(error))
+
+
+
 });
 
 async function ShowFirstShow(serie){
 
-  if (serie.length > 0) {
-    for (let i = 0; i < serie.length; i++) {
-     // const container = document.querySelector('#shows');
+    if (serie.length > 0) {
+        for (let i = 0; i < serie.length; i++) {
+      const container = document.querySelector('#shows');
+      const Links = document.querySelector('#details')
 
-      const name = serie[i].show.name
-      let nombre = document.createElement('h1');
-      nombre.innerHTML = name;
-      container.appendChild(nombre);
+          const name = serie[i].show.name
+          let nombre = document.createElement('h1');
+          nombre.innerHTML = name;
+          container.appendChild(nombre);
 
-      const image = serie[i].show.image
-      let foto = document.createElement('img');
-      if (image == null || image === '') {
-        foto.src = "https://via.placeholder.com/210x300?text=text+here";
-      } else if (image !== null) {
-        foto.src = image.medium
-      }
-      container.appendChild(foto);
+          const image = serie[i].show.image
+          let foto = document.createElement('img');
+          if (image == null || image === '') {
+            foto.src = "https://via.placeholder.com/210x300?text=text+here";
+          } else if (image !== null) {
+            foto.src = image.medium
+          }
+          container.appendChild(foto);
 
-      const summary = serie[i].show.summary
-      let desc = document.createElement('article');
-      desc.innerHTML = summary;
-      container.appendChild(desc);
+          const summary = serie[i].show.summary
+          let desc = document.createElement('article');
+          desc.innerHTML = summary;
+          container.appendChild(desc);
 
-      const link = serie[i].show.url
-      let url = document.createElement('a');
-      url.setAttribute('target', "_blank");
-      url.setAttribute('href', link);
-      url.innerText = link
-      container.appendChild(url);
+          const link = serie[i].show.url
+          let url = document.createElement('a');
+          url.setAttribute('target', "_blank");
+          url.setAttribute('href', link);
+          url.innerText = link
+          container.appendChild(url);
 
-      const genres = serie[i].show.genres
-      if (genres.length > 0) {
-        for (let i = 0; i < genres.length; i++) {
-          let Ordengender = document.createElement('li')
-          Ordengender.innerHTML = genres[i];
-          container.appendChild(Ordengender);
+          const genres = serie[i].show.genres
+          if (genres.length > 0) {
+            for (let i = 0; i < genres.length; i++) {
+              let Ordengender = document.createElement('li')
+              Ordengender.innerHTML = genres[i];
+              container.appendChild(Ordengender);
         }
       }
     }
   }
 }
-
-fetch(apilink)
-.then(serie => serie.json())
-.then(serie =>ShowFirstShow(serie))
-.catch(error => console.log(error))
-
