@@ -1,0 +1,36 @@
+.container {
+    background-color: grey;
+
+}
+html{
+    font-family: Verdana;
+    width: 60%;
+    margin: auto;
+    align-items: center;
+    background-color: white;
+}
+h1{
+    color: #803893;
+    text-align: center;
+    margin: 10pt;
+}
+img{
+
+    display: block;
+    width: 30% ;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10pt;
+    border: double green;
+}
+article{
+    margin: 10pt;
+    text-align: justify;
+}
+a{
+    margin: 20pt;
+}
+li{
+    margin-left: 20pt;
+    padding: 5pt;
+}
